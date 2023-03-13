@@ -7,13 +7,7 @@ class PlayerStatus:
     BUST = 'bust'
 
 class Player:
-    """Player in a game of blackjack
-    Params
-    ------
-    dealer: Dealer | None
-        The dealer of the game. The Player must have knowledge of the dealer 
-        in order to request a card, etc.
-    """
+    """Player in a game of blackjack"""
 
     def __init__(self, deck):
         """Create a new player.
