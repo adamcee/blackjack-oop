@@ -22,7 +22,6 @@ deck = Deck(BlackJackCard)
 NUM_PLAYERS = 5
 players = []
 for i in range(NUM_PLAYERS):
-    print(i)
     players.append(Player(i, deck))
 
 # More Game state
