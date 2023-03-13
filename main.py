@@ -22,7 +22,7 @@ NUM_PLAYERS = 5
 players = []
 for i in range(NUM_PLAYERS):
     print(i)
-    players.append(Player())
+    players.append(Player(deck))
 
 print(f"num players: {len(players)}")
 

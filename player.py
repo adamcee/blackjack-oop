@@ -75,6 +75,7 @@ class Player:
         return highest_possible_score
 
     def get_status(self):
+        """Players status in the game"""
         score = self.get_best_current_score()
 
         if score == 21:
@@ -86,21 +87,7 @@ class Player:
 
         return self.status
 
-    def take_turn(self):
-        """Player takes their turn and decides whether to hit or stay, etc
-        TODO: THIS IS WIP. FINISH.
-        NOTE: This is a very naive algorithm. 
-        """
 
-        # We check player status first to handle the edge case of the games
-        # very first turn.
-        score = self.get_best_current_score()
-
-
-        if self.get_be
-
-        score = self.get_best_current_score()
-        if score < 21:
-            _card = self.deck.deal_cards()
-            self.receive_cards(_card)
-
+    # TODO: Write some sort of `take_turn` method that when called
+    # looks at the player's score and decides if the player should "hit" or "stay".
+    # Would use the deck which is passed into the Player constructor to do this.

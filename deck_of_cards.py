@@ -134,7 +134,7 @@ class Deck:
     cards: list[Card]
        Represents the cards *currently* in the deck.
     """
-    def __init__(self, card_type=Card, include_jokers=False):
+    def __init__(self, Card_Class=Card, include_jokers=False):
         """Initialize the deck
         Params
         ------
@@ -142,6 +142,7 @@ class Deck:
             If we want the deck to have jokers or not
         
         """
+        self.Card_Class = Card_Class
         self.include_jokers = include_jokers
         self.cards = []
 
@@ -158,7 +159,7 @@ class Deck:
             for rank in Card.RANKS:
                 # We ignore Joker here - it's a special case we handle separately elsewhere
                 if(rank != 14):
-                    self.cards.append(Card(rank, suite))
+                    self.cards.append(self.Card_Class(rank, suite))
 
         if self.include_jokers:
             self.cards.append(Card(Card.RANKS[14], None))
