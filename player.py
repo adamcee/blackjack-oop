@@ -9,12 +9,15 @@ class PlayerStatus:
 class Player:
     """Player in a game of blackjack"""
 
-    def __init__(self, deck):
+    def __init__(self, player_name, deck):
         """Create a new player.
         Params
         -----
         deck: Deck
             The blackjack deck. This is so the player can get cards
+
+        player_name: string
+            A unique identifier for the player
 
         Attributes
         ----------
@@ -24,6 +27,7 @@ class Player:
         self.hand = []
         self.deck = deck
         self.status = PlayerStatus.ACTIVE
+        self.name = player_name
 
     def receive_cards(self, new_cards):
         """Add 1 or more cards to players hand
