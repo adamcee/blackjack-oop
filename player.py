@@ -88,6 +88,7 @@ class Player:
 
     def take_turn(self):
         """Player takes their turn and decides whether to hit or stay, etc
+        TODO: THIS IS WIP. FINISH.
         NOTE: This is a very naive algorithm. 
         """
 

@@ -41,6 +41,7 @@ for p in players:
     print(p.hand)
 
 # Play a single round
+# TODO: THIS IS WIP. FINISH.
 for p in players:
     winners = []
     next_rounds_active_players = []
