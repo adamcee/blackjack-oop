@@ -98,11 +98,6 @@ class BlackJackCard(Card):
     """A blackjack card. Represents the card's score or value in the game
     Attributes
     ----------
-    if_ace_use_as_one: bool
-        Aces are either valued at 1 or 11. If the card is an ace and this is true,
-        this card is valued at 1. If it's an ace and this is false, 11. If card is not
-        ace does not apply.
-    
     value: int
         The value of the card in the game
     """
