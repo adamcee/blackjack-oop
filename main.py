@@ -20,24 +20,27 @@ deck = Deck(BlackJackCard)
 
 # Game state - create the players
 NUM_PLAYERS = 5
-players = []
+active_players = []
 for i in range(NUM_PLAYERS):
-    players.append(Player(i, deck))
+    active_players.append(Player(i, deck))
 
 # More Game state
 CONTINUE_GAME = True
 winners = []
-busted_players = []
+all_busted_players = []
+recently_busted_players = []
 
 # First round - deal out initial cards, check for any players
 # who are immediate bust or immediate 21
-for _player in players:
+for _player in active_players:
     first_hand =  deck.deal_cards(2)
     _player.receive_cards(first_hand)
 
     status = _player.get_status()
     if status == PlayerStatus.TWENTYONE:
         winners.append(_player)
+    if status == PlayerStatus.BUST:
+        recently_busted_players.append(_player)
 
 # After the initial deal, check if we have any immediate winners
 if len(winners) > 0:
@@ -45,26 +48,41 @@ if len(winners) > 0:
 
 # Main game loop
 while CONTINUE_GAME is True:
-    # If all players are busted the game is over.
-    if len(busted_players) == len(players):
+    # Remove players busted in the last round from the active players list
+    # and reset the recently busted players list
+    for rbp in recently_busted_players:
+        #TODO: Confirm use .remove() for an object in list works in python
+        active_players.remove(rbp)
+        all_busted_players.append(rbp)
+
+    recently_busted_players = []
+
+    # Check if there are still any active players
+    if len(active_players) == 0:
         CONTINUE_GAME = False
         break
 
     # One round of play
-    for _player in players:
-        # 1. If player is bust we add them to the busted list, ignore them and move on to the next player
-        if _player.get_status() == PlayerStatus.BUST:
-            busted_players.append(_player)
-            continue
+    for _player in active_players:
+        # TODO: player choose to hit or stay. Need some sort of loop/recursion for continuous hits
+        # And we'll check player status as we go.
 
-        # 2. TODO: player choose to hit or stay. Need some sort of loop/recursion for continuous hits
+        # TODO: This is a very naive strategy. Improve.
+        # TODO: Move this into a method on the Player class?
+        # Keep asking for cards until we get 21 or go bust
+        while _player.get_status() == PlayerStatus.ACTIVE:
+            _player.receive_cards(deck.deal_cards())
 
-        # 3. If player gets 21 we add them to the winners list, and, as we are past the first round,
+        # If player gets 21 we add them to the winners list, and, as we are past the first round,
         # a winner means the game is over.
-        if status == PlayerStatus.TWENTYONE:
+        if _player.get_status() == PlayerStatus.TWENTYONE:
             winners.append(_player)
             CONTINUE_GAME = False
-            break  
+            break
+
+        # Check if player has busted
+        if _player.get_status() == PlayerStatus.BUST:
+            recently_busted_players.append(_player)
 
 # The game is over, announce the winners and the losers
 print("The game is over!")
@@ -76,5 +94,5 @@ else:
     print("There were no winners.")
 
 print("Losers:")
-for bp in busted_players:
+for bp in all_busted_players:
     print(bp.name)

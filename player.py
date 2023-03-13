@@ -18,15 +18,10 @@ class Player:
 
         player_name: string
             A unique identifier for the player
-
-        Attributes
-        ----------
-        status: PlayerStatus (string)
-            Status of the player in the game
         """
+
         self.hand = []
         self.deck = deck
-        self.status = PlayerStatus.ACTIVE
         self.name = player_name
 
     def receive_cards(self, new_cards):
@@ -77,13 +72,11 @@ class Player:
         score = self.get_best_current_score()
 
         if score == 21:
-            self.status = PlayerStatus.TWENTYONE
+            return PlayerStatus.TWENTYONE
         if score > 21:
-            self.status = PlayerStatus.BUST
+            return PlayerStatus.BUST
         else:
-            self.status = PlayerStatus.ACTIVE
-
-        return self.status
+            return PlayerStatus.ACTIVE
 
 
     # TODO: Write some sort of `take_turn` method that when called
